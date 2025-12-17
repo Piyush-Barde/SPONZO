@@ -1,4 +1,4 @@
-    // Mobile Menu Toggle
+        // Mobile Menu Toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const navMenu = document.getElementById('navMenu');
         const navActions = document.getElementById('navActions');
@@ -56,14 +56,35 @@
             const formData = new FormData(organizerForm);
             const data = Object.fromEntries(formData);
             
-            // Simulate API call
-            setTimeout(() => {
-                console.log('Event Organizer Registration:', data);
+            // 🔥 REPLACE WITH YOUR API ENDPOINT
+            const API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbysgiyhLNkRqL8QTUjSzaNiNRaIWjidsMWAfWIVtdr2SSHawuuWvPG4sQGh4cyY8PPK4Q/exec'; // e.g., 'https://api.yoursite.com/organizers'
+            
+            // API Call
+            fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('Event Organizer Registration Success:', result);
                 btn.classList.remove('loading-state');
                 closeModal('organizer');
                 organizerForm.reset();
                 showSuccessMessage();
-            }, 1500);
+            })
+            .catch(error => {
+                console.error('Registration Error:', error);
+                btn.classList.remove('loading-state');
+                alert('Registration failed. Please try again or contact support.');
+            });
         });
 
         // Sponsor Form Submission
@@ -78,14 +99,35 @@
             const formData = new FormData(sponsorForm);
             const data = Object.fromEntries(formData);
             
-            // Simulate API call
-            setTimeout(() => {
-                console.log('Sponsor Registration:', data);
+            // 🔥 REPLACE WITH YOUR API ENDPOINT
+            const API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyWaT-qZhC2O1nqSnMpX4I7xghOMbMHPXQjhvsue3vrBoCJ3qwotlaLDAgDl9fG6qnJGQ/exec'; // e.g., 'https://api.yoursite.com/sponsors'
+            
+            // API Call
+            fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('Sponsor Registration Success:', result);
                 btn.classList.remove('loading-state');
                 closeModal('sponsor');
                 sponsorForm.reset();
                 showSuccessMessage();
-            }, 1500);
+            })
+            .catch(error => {
+                console.error('Registration Error:', error);
+                btn.classList.remove('loading-state');
+                alert('Registration failed. Please try again or contact support.');
+            });
         });
 
         // Smooth Scroll
@@ -130,4 +172,3 @@
             }
             lastScrollY = window.scrollY;
         });
-
