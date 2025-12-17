@@ -1,14 +1,14 @@
 /****************************************************
- * MAIN FRONTEND JAVASCRIPT
+ * SPONZO - Frontend JavaScript
  * Handles:
  * - Mobile menu
  * - Modals
- * - Two different forms
- * - Two different Google Apps Script endpoints
+ * - Organizer & Sponsor form submission
+ * - Google Apps Script POST
  ****************************************************/
 
 /* ===============================
-   MOBILE MENU TOGGLE
+   MOBILE MENU
 ================================ */
 const mobileMenuToggle = document.getElementById("mobileMenuToggle");
 const navMenu = document.getElementById("navMenu");
@@ -22,16 +22,12 @@ if (mobileMenuToggle) {
 }
 
 /* ===============================
-   MODAL OPEN / CLOSE
+   MODALS
 ================================ */
 function openModal(type) {
   const modalId = type === "organizer" ? "organizerModal" : "sponsorModal";
-  const modal = document.getElementById(modalId);
-
-  if (modal) {
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
+  document.getElementById(modalId).classList.add("active");
+  document.body.style.overflow = "hidden";
 
   navMenu.classList.remove("mobile-open");
   navActions.classList.remove("mobile-open");
@@ -39,15 +35,11 @@ function openModal(type) {
 
 function closeModal(type) {
   const modalId = type === "organizer" ? "organizerModal" : "sponsorModal";
-  const modal = document.getElementById(modalId);
-
-  if (modal) {
-    modal.classList.remove("active");
-    document.body.style.overflow = "auto";
-  }
+  document.getElementById(modalId).classList.remove("active");
+  document.body.style.overflow = "auto";
 }
 
-/* Close modal when clicking outside */
+/* Close modal when clicking backdrop */
 document.querySelectorAll(".modal").forEach(modal => {
   modal.addEventListener("click", e => {
     if (e.target === modal) {
@@ -62,9 +54,8 @@ document.querySelectorAll(".modal").forEach(modal => {
 ================================ */
 function showSuccessMessage() {
   const successMessage = document.getElementById("successMessage");
-  if (!successMessage) return;
-
   successMessage.classList.add("show");
+
   setTimeout(() => {
     successMessage.classList.remove("show");
   }, 5000);
@@ -73,45 +64,36 @@ function showSuccessMessage() {
 /* ===============================
    GENERIC FORM SUBMIT HANDLER
 ================================ */
-async function submitForm(form, apiEndpoint, modalType) {
-  const submitBtn = form.querySelector('button[type="submit"]');
-  submitBtn.classList.add("loading-state");
+async function submitForm(form, apiEndpoint) {
+  const btn = form.querySelector('button[type="submit"]');
+  btn.classList.add("loading-state");
 
-  const formData = Object.fromEntries(new FormData(form));
+  const data = Object.fromEntries(new FormData(form));
 
   try {
     const response = await fetch(apiEndpoint, {
       method: "POST",
-      mode: "cors",
-      redirect: "follow",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(data)
     });
 
-    const rawText = await response.text();
-    let result;
-
-    try {
-      result = JSON.parse(rawText);
-    } catch {
-      throw new Error("Invalid response from server");
-    }
+    const text = await response.text();
+    const result = JSON.parse(text);
 
     if (!result.success) {
       throw new Error(result.error || "Submission failed");
     }
 
-    submitBtn.classList.remove("loading-state");
+    btn.classList.remove("loading-state");
     form.reset();
-    closeModal(modalType);
     showSuccessMessage();
 
   } catch (error) {
-    console.error("Form submission error:", error);
-    submitBtn.classList.remove("loading-state");
-    alert("Submission failed. Please try again later.");
+    console.error("Submission error:", error);
+    btn.classList.remove("loading-state");
+    alert("Submission failed. Please try again.");
   }
 }
 
@@ -120,26 +102,28 @@ async function submitForm(form, apiEndpoint, modalType) {
 ================================ */
 const organizerForm = document.getElementById("organizerForm");
 const ORGANIZER_API_URL =
-  "https://script.google.com/macros/s/AKfycbz5caRQhbellUm8F65WMaArBbwBZdMxF_nXDJIYJgEHaT0tYJp9QOzv-I94yXOEY3Birg/exec";
+  "https://script.google.com/macros/s/AKfycbyUjUctEpDrVmxrwUF-gCRTddq1rycfCrGiZGI9Z3dxTb4IClPPm4pvrWC-eFywUxZBQA/exec";
 
 if (organizerForm) {
   organizerForm.addEventListener("submit", e => {
-    e.preventDefault();
-    submitForm(organizerForm, ORGANIZER_API_URL, "organizer");
+    e.preventDefault(); // CRITICAL
+    submitForm(organizerForm, ORGANIZER_API_URL);
+    closeModal("organizer");
   });
 }
 
 /* ===============================
-   SPONSOR / BRAND FORM
+   SPONSOR FORM
 ================================ */
 const sponsorForm = document.getElementById("sponsorForm");
 const SPONSOR_API_URL =
-  "PASTE_SPONSOR_SCRIPT_URL_HERE";
+  "PASTE_SPONSOR_SCRIPT_URL_HERE"; // <-- replace when backend ready
 
 if (sponsorForm) {
   sponsorForm.addEventListener("submit", e => {
     e.preventDefault();
-    submitForm(sponsorForm, SPONSOR_API_URL, "sponsor");
+    submitForm(sponsorForm, SPONSOR_API_URL);
+    closeModal("sponsor");
   });
 }
 
@@ -152,11 +136,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(anchor.getAttribute("href"));
 
     if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
+      target.scrollIntoView({ behavior: "smooth" });
       navMenu.classList.remove("mobile-open");
       navActions.classList.remove("mobile-open");
     }
@@ -171,15 +151,12 @@ document.addEventListener("keydown", e => {
     document.querySelectorAll(".modal.active").forEach(modal => {
       modal.classList.remove("active");
     });
-
     document.body.style.overflow = "auto";
-    navMenu.classList.remove("mobile-open");
-    navActions.classList.remove("mobile-open");
   }
 });
 
 /* ===============================
-   AUTO-HIDE NAVBAR ON SCROLL
+   AUTO HIDE NAVBAR
 ================================ */
 let lastScrollY = window.scrollY;
 const navbar = document.querySelector(".navbar");
