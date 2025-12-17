@@ -1,15 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPONZO - The Ultimate Sponsorship Marketplace</title>
+    <link rel="shortcut icon" href="./images/sponso.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="logo">S</div>
+                <h1>SPONZO</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#use-cases" class="nav-link">Use Cases</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#register" class="nav-link">Get Started</a>
+            </div>
+            <div class="nav-actions" id="navActions">
+                <button class="btn btn-outline" onclick="openModal('organizer')">I Need Sponsors</button>
+                <button class="btn btn-primary" onclick="openModal('sponsor')">I Want to Sponsor</button>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>SPONZO Marketplace Frontend</title>
-    </head>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">🚀 Making Sponsorships Simple & Accessible</div>
+                <h1 class="hero-title">The Complete Sponsorship Marketplace</h1>
+                <p class="hero-subtitle">Whether you're organizing a college fest, tech conference, sports tournament, or community event - find the perfect sponsors. Or discover events that align with your brand values.</p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary btn-lg" onclick="openModal('organizer')">Find Sponsors</button>
+                    <button class="btn btn-secondary btn-lg" onclick="openModal('sponsor')">Sponsor Events</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Active Events</p>
+                </div>
+                <div class="stat-item">
+                    <h3>200+</h3>
+                    <p>Brands & Sponsors</p>
+                </div>
+                <div class="stat-item">
+                    <h3>₹2Cr+</h3>
+                    <p>Sponsorship Value</p>
+                </div>
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases-section" id="use-cases">
+        <div class="container">
+            <div class="section-label">Who Uses SPONZO?</div>
+            <h2 class="section-title">Perfect For Any Event</h2>
+            <p class="section-subtitle">From college fests to corporate conferences, SPONZO connects organizers with sponsors across all industries</p>
+
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">🎓</div>
+                    <h3>College Events</h3>
+                    <p>Technical fests, cultural events, sports tournaments, hackathons, and student conferences</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💼</div>
+                    <h3>Corporate Events</h3>
+                    <p>Industry conferences, seminars, product launches, and networking events</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🎪</div>
+                    <h3>Community Events</h3>
+                    <p>Local festivals, charity events, marathons, and social gatherings</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🏃</div>
+                    <h3>Sports Events</h3>
+                    <p>Tournaments, leagues, marathons, and fitness competitions</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🎨</div>
+                    <h3>Arts & Culture</h3>
+                    <p>Art exhibitions, music festivals, theater productions, and cultural showcases</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💻</div>
+                    <h3>Tech Events</h3>
+                    <p>Hackathons, tech talks, workshops, bootcamps, and developer meetups</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Selection Section -->
+    <section class="user-selection" id="register">
+        <div class="container">
+            <div class="section-label">Get Started</div>
+            <h2 class="section-title">Join SPONZO Today</h2>
+            <p class="section-subtitle">Whether you're looking for sponsors or want to sponsor events, we've got you covered</p>
+
+            <div class="user-cards">
+                <!-- Event Organizer Card -->
+                <div class="user-card organizer-card">
+                    <div class="user-icon">📅</div>
+                    <h3>Event Organizers</h3>
+                    <p>Organizing an event and need sponsors to make it successful</p>
+                    
+                    <ul class="features-list">
+                        <li>List your event with complete details</li>
+                        <li>Create attractive sponsorship packages</li>
+                        <li>Connect with relevant brands</li>
+                        <li>Manage multiple sponsorship tiers</li>
+                        <li>Track sponsor applications & proposals</li>
+                        <li>Negotiate terms & finalize deals</li>
+                    </ul>
+
+                    <button class="btn btn-primary btn-lg btn-block" onclick="openModal('organizer')">
+                        Register as Organizer
+                    </button>
+                </div>
+
+                <!-- Sponsor Card -->
+                <div class="user-card sponsor-card">
+                    <div class="user-icon">🏢</div>
+                    <h3>Brands & Sponsors</h3>
+                    <p>Looking to sponsor events and reach your target audience</p>
+                    
+                    <ul class="features-list">
+                        <li>Browse events across categories</li>
+                        <li>Filter by audience & demographics</li>
+                        <li>Choose sponsorship levels</li>
+                        <li>Connect with event organizers</li>
+                        <li>Track ROI & brand visibility</li>
+                        <li>Manage multiple sponsorships</li>
+                    </ul>
+
+                    <button class="btn btn-secondary btn-lg btn-block" onclick="openModal('sponsor')">
+                        Register as Sponsor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-label">Process</div>
+            <h2 class="section-title">How SPONZO Works</h2>
+            <p class="section-subtitle">A streamlined 4-step process to make sponsorships happen</p>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Register</h3>
+                    <p>Create your profile as an event organizer or sponsor with detailed information</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Discover</h3>
+                    <p>Browse through events or sponsors that match your criteria and goals</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Connect</h3>
+                    <p>Reach out, discuss terms, and negotiate directly through our platform</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Execute</h3>
+                    <p>Finalize agreements, manage deliverables, and measure success</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SPONZO</div>
+                <p class="footer-tagline">Making Sponsorships Simple & Accessible for Everyone</p>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2024 SPONZO. All rights reserved. | Connecting Events with Sponsors</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Event Organizer Registration Modal -->
+    <div class="modal" id="organizerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Register as Event Organizer</h2>
+                <p>Fill in the details to list your event</p>
+                <button class="modal-close" onclick="closeModal('organizer')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="organizerForm">
+                    <div class="form-group">
+                        <label>Organization Name <span class="required">*</span></label>
+                        <input type="text" name="organizationName" required placeholder="Your organization/institution name">
+                        <div class="form-help">College, company, NGO, club, or individual</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name <span class="required">*</span></label>
+                            <input type="text" name="contactPerson" required placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Role <span class="required">*</span></label>
+                            <input type="text" name="role" required placeholder="e.g., Event Coordinator">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" name="email" required placeholder="your.email@domain.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number <span class="required">*</span></label>
+                            <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Event Name <span class="required">*</span></label>
+                        <input type="text" name="eventName" required placeholder="e.g., TechSummit 2025">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Event Category <span class="required">*</span></label>
+                            <select name="eventCategory" required>
+                                <option value="">Select category</option>
+                                <option value="college-fest">College Fest</option>
+                                <option value="technical">Technical/IT Event</option>
+                                <option value="cultural">Cultural Event</option>
+                                <option value="sports">Sports Event</option>
+                                <option value="business">Business/Corporate</option>
+                                <option value="startup">Startup/Entrepreneurship</option>
+                                <option value="community">Community Event</option>
+                                <option value="charity">Charity/Social Cause</option>
+                                <option value="arts">Arts & Entertainment</option>
+                                <option value="education">Educational/Workshop</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Date <span class="required">*</span></label>
+                            <input type="date" name="eventDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Event Location <span class="required">*</span></label>
+                            <input type="text" name="location" required placeholder="City, State">
+                        </div>
+                        <div class="form-group">
+                            <label>Expected Attendees <span class="required">*</span></label>
+                            <input type="number" name="attendees" required placeholder="e.g., 2000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Target Audience <span class="required">*</span></label>
+                        <textarea name="targetAudience" required placeholder="Describe your audience (e.g., college students, professionals, tech enthusiasts, age group, interests...)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sponsorship Amount Required <span class="required">*</span></label>
+                        <input type="text" name="sponsorshipAmount" required placeholder="e.g., ₹5,00,000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Event Description <span class="required">*</span></label>
+                        <textarea name="eventDescription" required placeholder="Provide detailed information about your event, its objectives, activities, and why sponsors should be interested..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What Can You Offer Sponsors? <span class="required">*</span></label>
+                        <textarea name="offerings" required placeholder="e.g., Logo placement, stalls/booths, stage branding, social media coverage, speaking slots, product sampling..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Event Website/Social Media (Optional)</label>
+                        <input type="url" name="website" placeholder="https://yourevent.com or social media handle">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="organizerTerms" required>
+                        <label for="organizerTerms">I agree to the terms and conditions and confirm all information is accurate</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <span class="btn-text">Submit Registration</span>
+                        <span class="loading"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sponsor Registration Modal -->
+    <div class="modal" id="sponsorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Register as Sponsor</h2>
+                <p>Fill in the details to start sponsoring events</p>
+                <button class="modal-close" onclick="closeModal('sponsor')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="sponsorForm">
+                    <div class="form-group">
+                        <label>Company/Brand Name <span class="required">*</span></label>
+                        <input type="text" name="companyName" required placeholder="Your company or brand name">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name <span class="required">*</span></label>
+                            <input type="text" name="contactPerson" required placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Position <span class="required">*</span></label>
+                            <input type="text" name="position" required placeholder="e.g., Marketing Manager">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" name="email" required placeholder="your.email@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number <span class="required">*</span></label>
+                            <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Industry/Sector <span class="required">*</span></label>
+                        <select name="industry" required>
+                            <option value="">Select industry</option>
+                            <option value="technology">Technology/IT</option>
+                            <option value="finance">Finance/Banking</option>
+                            <option value="fmcg">FMCG/Consumer Goods</option>
+                            <option value="education">Education/EdTech</option>
+                            <option value="healthcare">Healthcare/Pharma</option>
+                            <option value="automotive">Automotive</option>
+                            <option value="retail">Retail/E-commerce</option>
+                            <option value="media">Media/Entertainment</option>
+                            <option value="telecom">Telecom</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="food-beverage">Food & Beverage</option>
+                            <option value="fashion">Fashion/Apparel</option>
+                            <option value="consulting">Consulting</option>
+                            <option value="startup">Startup</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company Website <span class="required">*</span></label>
+                        <input type="url" name="website" required placeholder="https://yourcompany.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>What Type of Events Interest You? <span class="required">*</span></label>
+                        <textarea name="eventInterests" required placeholder="e.g., College technical fests, startup conferences, sports tournaments, cultural events, community gatherings..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sponsorship Budget Range <span class="required">*</span></label>
+                            <select name="budgetRange" required>
+                                <option value="">Select range</option>
+                                <option value="25k-50k">₹25,000 - ₹50,000</option>
+                                <option value="50k-100k">₹50,000 - ₹1,00,000</option>
+                                <option value="100k-250k">₹1,00,000 - ₹2,50,000</option>
+                                <option value="250k-500k">₹2,50,000 - ₹5,00,000</option>
+                                <option value="500k-1m">₹5,00,000 - ₹10,00,000</option>
+                                <option value="1m-5m">₹10,00,000 - ₹50,00,000</option>
+                                <option value="5m+">₹50,00,000+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Location <span class="required">*</span></label>
+                            <select name="location" required>
+                                <option value="">Select location</option>
+                                <option value="any">Pan India</option>
+                                <option value="north">North India</option>
+                                <option value="south">South India</option>
+                                <option value="east">East India</option>
+                                <option value="west">West India</option>
+                                <option value="metro">Metro Cities Only</option>
+                                <option value="tier2">Tier 2 Cities</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Target Audience <span class="required">*</span></label>
+                        <textarea name="targetAudience" required placeholder="Describe your ideal audience (e.g., college students 18-24, working professionals, tech enthusiasts, sports fans...)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sponsorship Goals <span class="required">*</span></label>
+                        <textarea name="goals" required placeholder="What do you want to achieve? (e.g., Brand awareness, lead generation, product sampling, recruitment, CSR, community engagement...)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Previous Sponsorship Experience (Optional)</label>
+                        <textarea name="experience" placeholder="Tell us about any past sponsorships or partnerships..."></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="sponsorTerms" required>
+                        <label for="sponsorTerms">I agree to the terms and conditions and confirm all information is accurate</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary btn-lg btn-block">
+                        <span class="btn-text">Submit Registration</span>
+                        <span class="loading"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <div class="success-message-content">
+            <div class="success-icon">🎉</div>
+            <div class="success-text">
+                <h4>Registration Successful!</h4>
+                <p>We'll review your application and get back to you within 24-48 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
