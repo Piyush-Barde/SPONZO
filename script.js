@@ -120,7 +120,7 @@ async function submitForm(form, apiEndpoint, modalType) {
 ================================ */
 const organizerForm = document.getElementById("organizerForm");
 const ORGANIZER_API_URL =
-  "https://script.google.com/macros/s/AKfycbx2ZjObhQjvJnUKnCxH6nVTSIyBfmubme7KAIZD0APHal5tUrZcjReiSqynPXbJJ3vXug/exec";
+  "https://script.google.com/macros/s/AKfycby3VRu18k_AcKIZipIay_8Mg8lrJ6iDJWYLS1SwfTLdnD-b7ZWPIncU1K8Zq9NSGu5srw/exec";
 
 if (organizerForm) {
   organizerForm.addEventListener("submit", e => {
