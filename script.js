@@ -1,182 +1,197 @@
-// ===============================
-// Mobile Menu Toggle
-// ===============================
-const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-const navMenu = document.getElementById('navMenu');
-const navActions = document.getElementById('navActions');
+/****************************************************
+ * MAIN FRONTEND JAVASCRIPT
+ * Handles:
+ * - Mobile menu
+ * - Modals
+ * - Two different forms
+ * - Two different Google Apps Script endpoints
+ ****************************************************/
 
-mobileMenuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('mobile-open');
-    navActions.classList.toggle('mobile-open');
-});
+/* ===============================
+   MOBILE MENU TOGGLE
+================================ */
+const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+const navMenu = document.getElementById("navMenu");
+const navActions = document.getElementById("navActions");
 
-// ===============================
-// Modal Functions
-// ===============================
+if (mobileMenuToggle) {
+  mobileMenuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("mobile-open");
+    navActions.classList.toggle("mobile-open");
+  });
+}
+
+/* ===============================
+   MODAL OPEN / CLOSE
+================================ */
 function openModal(type) {
-    const modalId = type === 'organizer' ? 'organizerModal' : 'sponsorModal';
-    document.getElementById(modalId).classList.add('active');
-    document.body.style.overflow = 'hidden';
+  const modalId = type === "organizer" ? "organizerModal" : "sponsorModal";
+  const modal = document.getElementById(modalId);
 
-    // Close mobile menu if open
-    navMenu.classList.remove('mobile-open');
-    navActions.classList.remove('mobile-open');
+  if (modal) {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  navMenu.classList.remove("mobile-open");
+  navActions.classList.remove("mobile-open");
 }
 
 function closeModal(type) {
-    const modalId = type === 'organizer' ? 'organizerModal' : 'sponsorModal';
-    document.getElementById(modalId).classList.remove('active');
-    document.body.style.overflow = 'auto';
+  const modalId = type === "organizer" ? "organizerModal" : "sponsorModal";
+  const modal = document.getElementById(modalId);
+
+  if (modal) {
+    modal.classList.remove("active");
+    document.body.style.overflow = "auto";
+  }
 }
 
-// Close modal on backdrop click
-document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
+/* Close modal when clicking outside */
+document.querySelectorAll(".modal").forEach(modal => {
+  modal.addEventListener("click", e => {
+    if (e.target === modal) {
+      modal.classList.remove("active");
+      document.body.style.overflow = "auto";
+    }
+  });
 });
 
-// ===============================
-// Success Message
-// ===============================
+/* ===============================
+   SUCCESS MESSAGE
+================================ */
 function showSuccessMessage() {
-    const successMessage = document.getElementById('successMessage');
-    successMessage.classList.add('show');
-    setTimeout(() => {
-        successMessage.classList.remove('show');
-    }, 5000);
+  const successMessage = document.getElementById("successMessage");
+  if (!successMessage) return;
+
+  successMessage.classList.add("show");
+  setTimeout(() => {
+    successMessage.classList.remove("show");
+  }, 5000);
 }
 
-// ===============================
-// COMMON FETCH FUNCTION (IMPORTANT)
-// ===============================
-async function submitToGoogleSheet(API_ENDPOINT, data, btn, modalType, form) {
-    try {
-        const response = await fetch(API_ENDPOINT, {
-            method: 'POST',
-            mode: 'cors',
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+/* ===============================
+   GENERIC FORM SUBMIT HANDLER
+================================ */
+async function submitForm(form, apiEndpoint, modalType) {
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.classList.add("loading-state");
 
-        const text = await response.text(); // IMPORTANT
-        console.log('Raw API Response:', text);
+  const formData = Object.fromEntries(new FormData(form));
 
-        let result;
-        try {
-            result = JSON.parse(text);
-        } catch (err) {
-            throw new Error('Invalid JSON response from server');
-        }
-
-        if (!result.success) {
-            throw new Error(result.error || 'Submission failed');
-        }
-
-        btn.classList.remove('loading-state');
-        closeModal(modalType);
-        form.reset();
-        showSuccessMessage();
-
-    } catch (error) {
-        console.error('Submission Error:', error);
-        btn.classList.remove('loading-state');
-        alert('Submission failed. Please try again later.');
-    }
-}
-
-// ===============================
-// Event Organizer Form Submission
-// ===============================
-const organizerForm = document.getElementById('organizerForm');
-
-organizerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const btn = organizerForm.querySelector('button[type="submit"]');
-    btn.classList.add('loading-state');
-
-    const formData = new FormData(organizerForm);
-    const data = Object.fromEntries(formData);
-
-    const API_ENDPOINT =
-        'https://script.google.com/macros/s/AKfycbysgiyhLNkRqL8QTUjSzaNiNRaIWjidsMWAfWIVtdr2SSHawuuWvPG4sQGh4cyY8PPK4Q/exec';
-
-    submitToGoogleSheet(API_ENDPOINT, data, btn, 'organizer', organizerForm);
-});
-
-// ===============================
-// Sponsor Form Submission
-// ===============================
-const sponsorForm = document.getElementById('sponsorForm');
-
-sponsorForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const btn = sponsorForm.querySelector('button[type="submit"]');
-    btn.classList.add('loading-state');
-
-    const formData = new FormData(sponsorForm);
-    const data = Object.fromEntries(formData);
-
-    const API_ENDPOINT =
-        'https://script.google.com/macros/s/AKfycbyWaT-qZhC2O1nqSnMpX4I7xghOMbMHPXQjhvsue3vrBoCJ3qwotlaLDAgDl9fG6qnJGQ/exec';
-
-    submitToGoogleSheet(API_ENDPOINT, data, btn, 'sponsor', sponsorForm);
-});
-
-// ===============================
-// Smooth Scroll
-// ===============================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-
-            navMenu.classList.remove('mobile-open');
-            navActions.classList.remove('mobile-open');
-        }
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      mode: "cors",
+      redirect: "follow",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
     });
-});
 
-// ===============================
-// Keyboard Accessibility
-// ===============================
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        document.querySelectorAll('.modal.active').forEach(modal => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+    const rawText = await response.text();
+    let result;
 
-        navMenu.classList.remove('mobile-open');
-        navActions.classList.remove('mobile-open');
+    try {
+      result = JSON.parse(rawText);
+    } catch {
+      throw new Error("Invalid response from server");
     }
+
+    if (!result.success) {
+      throw new Error(result.error || "Submission failed");
+    }
+
+    submitBtn.classList.remove("loading-state");
+    form.reset();
+    closeModal(modalType);
+    showSuccessMessage();
+
+  } catch (error) {
+    console.error("Form submission error:", error);
+    submitBtn.classList.remove("loading-state");
+    alert("Submission failed. Please try again later.");
+  }
+}
+
+/* ===============================
+   EVENT ORGANIZER FORM
+================================ */
+const organizerForm = document.getElementById("organizerForm");
+const ORGANIZER_API_URL =
+  "PASTE_EVENT_ORGANIZER_SCRIPT_URL_HERE";
+
+if (organizerForm) {
+  organizerForm.addEventListener("submit", e => {
+    e.preventDefault();
+    submitForm(organizerForm, ORGANIZER_API_URL, "organizer");
+  });
+}
+
+/* ===============================
+   SPONSOR / BRAND FORM
+================================ */
+const sponsorForm = document.getElementById("sponsorForm");
+const SPONSOR_API_URL =
+  "PASTE_SPONSOR_SCRIPT_URL_HERE";
+
+if (sponsorForm) {
+  sponsorForm.addEventListener("submit", e => {
+    e.preventDefault();
+    submitForm(sponsorForm, SPONSOR_API_URL, "sponsor");
+  });
+}
+
+/* ===============================
+   SMOOTH SCROLL
+================================ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", e => {
+    e.preventDefault();
+    const target = document.querySelector(anchor.getAttribute("href"));
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      navMenu.classList.remove("mobile-open");
+      navActions.classList.remove("mobile-open");
+    }
+  });
 });
 
-// ===============================
-// Auto-hide Navbar on Scroll
-// ===============================
+/* ===============================
+   ESC KEY HANDLING
+================================ */
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    document.querySelectorAll(".modal.active").forEach(modal => {
+      modal.classList.remove("active");
+    });
+
+    document.body.style.overflow = "auto";
+    navMenu.classList.remove("mobile-open");
+    navActions.classList.remove("mobile-open");
+  }
+});
+
+/* ===============================
+   AUTO-HIDE NAVBAR ON SCROLL
+================================ */
 let lastScrollY = window.scrollY;
-const navbar = document.querySelector('.navbar');
+const navbar = document.querySelector(".navbar");
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > lastScrollY && window.scrollY > 100) {
-        navbar.style.transform = 'translateY(-100%)';
-    } else {
-        navbar.style.transform = 'translateY(0)';
-    }
-    lastScrollY = window.scrollY;
+window.addEventListener("scroll", () => {
+  if (!navbar) return;
+
+  if (window.scrollY > lastScrollY && window.scrollY > 100) {
+    navbar.style.transform = "translateY(-100%)";
+  } else {
+    navbar.style.transform = "translateY(0)";
+  }
+
+  lastScrollY = window.scrollY;
 });
