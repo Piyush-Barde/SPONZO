@@ -74,6 +74,9 @@
    STATS COUNT-UP ANIMATION
 ================================ */
 
+/* ===============================
+   STATS COUNT-UP ANIMATION (BALANCED SPEED)
+================================ */
 const counters = document.querySelectorAll(".stat-number");
 let statsAnimated = false;
 
@@ -84,22 +87,27 @@ function animateCounters() {
     const target = +counter.dataset.target;
     const prefix = counter.dataset.prefix || "";
     const suffix = counter.dataset.suffix || "";
-    let count = 0;
+    
+    // Changed duration to 1000ms (1 second) for a faster, snappier feel
+    const duration = 1000; 
+    const startTime = performance.now();
 
-    const increment = Math.ceil(target / 60); // speed control
+    const updateCount = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Calculate current value based on time progress
+      const currentVal = Math.floor(progress * target);
 
-    const updateCount = () => {
-      count += increment;
-
-      if (count >= target) {
-        counter.textContent = `${prefix}${target}${suffix}`;
-      } else {
-        counter.textContent = `${prefix}${count}${suffix}`;
+      if (progress < 1) {
+        counter.textContent = `${prefix}${currentVal}${suffix}`;
         requestAnimationFrame(updateCount);
+      } else {
+        counter.textContent = `${prefix}${target}${suffix}`;
       }
     };
 
-    updateCount();
+    requestAnimationFrame(updateCount);
   });
 
   statsAnimated = true;
@@ -116,7 +124,7 @@ if (statsSection) {
         observer.disconnect();
       }
     },
-    { threshold: 0.4 }
+    { threshold: 0.2 }
   );
 
   observer.observe(statsSection);
