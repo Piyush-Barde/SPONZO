@@ -4,27 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPONZO - The Ultimate Sponsorship Marketplace</title>
-    <link rel="shortcut icon" href="./images/sponso.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/sponso2.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <div class="logo">S</div>
+                <div class="logo">
+                    <img src="./images/sponso2.png" alt="SPONZO Logo">
+                </div>
                 <h1>SPONZO</h1>
             </div>
             <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#use-cases" class="nav-link">Use Cases</a>
                 <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#events" class="nav-link">Events</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#contact" class="nav-link">Contact</a>
                 <a href="#register" class="nav-link">Get Started</a>
-            </div>
-            <div class="nav-actions" id="navActions">
-                <button class="btn btn-outline" onclick="openModal('organizer')">I Need Sponsors</button>
-                <button class="btn btn-primary" onclick="openModal('sponsor')">I Want to Sponsor</button>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>
@@ -40,7 +43,7 @@
             <div class="hero-content">
                 <div class="badge">🚀 Making Sponsorships Simple & Accessible</div>
                 <h1 class="hero-title">The Complete Sponsorship Marketplace</h1>
-                <p class="hero-subtitle">Whether you're organizing a college fest, tech conference, sports tournament, or community event - find the perfect sponsors. Or discover events that align with your brand values.</p>
+                <p class="hero-subtitle">Whether you're organizing a college fest, tech conference, sports tournament, or community event - find the perfect sponsors. <br> Or discover events that align with your brand values.</p>
                 <div class="hero-cta">
                     <button class="btn btn-primary btn-lg" onclick="openModal('organizer')">Find Sponsors</button>
                     <button class="btn btn-secondary btn-lg" onclick="openModal('sponsor')">Sponsor Events</button>
@@ -51,30 +54,27 @@
 
     <!-- Stats Section -->
     <section class="stats-section">
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h3 class="stat-number" data-target="15" data-suffix="+">0</h3>
-                <p>Active Events</p>
-            </div>
-
-            <div class="stat-item">
-                <h3 class="stat-number" data-target="20" data-suffix="+">0</h3>
-                <p>Brands & Sponsors</p>
-            </div>
-
-            <div class="stat-item">
-                <h3 class="stat-number" data-target="5" data-prefix="₹" data-suffix="L+">0</h3>
-                <p>Sponsorship Value</p>
-            </div>
-
-            <div class="stat-item">
-                <h3 class="stat-number" data-target="80" data-suffix="%">0</h3>
-                <p>Success Rate</p>
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Active Events</p>
+                </div>
+                <div class="stat-item">
+                    <h3>20+</h3>
+                    <p>Brands & Sponsors</p>
+                </div>
+                <div class="stat-item">
+                    <h3>₹5L+</h3>
+                    <p>Sponsorship Value</p>
+                </div>
+                <div class="stat-item">
+                    <h3>85%</h3>
+                    <p>Success Rate</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Use Cases Section -->
     <section class="use-cases-section" id="use-cases">
@@ -201,29 +201,81 @@
         </div>
     </section>
 
-<section class="contact-section" id="contact">
-    <div class="container">
-        <div class="section-label">Get In Touch</div>
-        <h2 class="section-title">Contact Us</h2>
-        <p class="section-subtitle">Have questions? We're here to help. Reach out to us through any of these channels</p>
+    <!-- // Events Section 
+    <section class="events-section" id="events">
+        <div class="container">
+            <div class="section-label">Explore Opportunities</div>
+            <h2 class="section-title">Featured Events</h2>
+            <p class="section-subtitle">Discover exciting events looking for sponsors or find the perfect sponsorship opportunity</p>
 
-        <div class="contact-grid">
-            <div class="contact-card">
-                <div class="contact-icon email-icon">📧</div>
-                <h3>Email Us</h3>
-                <p>For general inquiries and support</p>
-                <a href="mailto:sponzo.connect.in@gmail.com" class="contact-link">sponzo.connect.in@gmail.com</a>
+            <div class="events-tabs">
+                <button class="event-tab active" data-category="all" onclick="filterEvents('all')">All Events</button>
+                <button class="event-tab" data-category="college" onclick="filterEvents('college')">College Events</button>
+                <button class="event-tab" data-category="corporate" onclick="filterEvents('corporate')">Corporate Events</button>
+                <button class="event-tab" data-category="sports" onclick="filterEvents('sports')">Sports</button>
+                <button class="event-tab" data-category="tech" onclick="filterEvents('tech')">Tech Events</button>
+                <button class="event-tab" data-category="cultural" onclick="filterEvents('cultural')">Cultural</button>
             </div>
 
-            <div class="contact-card">
-                <div class="contact-icon call-icon">📞</div>
-                <h3>Call Us</h3>
-                <p>Mon-Fri from 9am to 9pm IST</p>
-                <a href="tel:+91 89284 199924" class="contact-link">+91 89284 199924</a>
+            <div class="events-grid" id="eventsGrid">
+                // <!- Events will be loaded here ->
             </div>
         </div>
-    </div>
-</section>
+    </section>
+                -->
+
+    <!-- Event Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-label">Our Success Stories</div>
+            <h2 class="section-title">Event Gallery</h2>
+            <p class="section-subtitle">Explore highlights from past events we've helped sponsor and organize</p>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-label">Get In Touch</div>
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Have questions? We're here to help. Reach out to us through any of these channels</p>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email Us</h3>
+                    <p>For general inquiries and support</p>
+                    <a href="/cdn-cgi/l/email-protection#b6c5c3c6c6d9c4c2f6c5c6d9d8ccd998d5d9db" class="contact-link"><span class="__cf_email__" data-cfemail="6d1e181d1d021f192d1e1d02031702430e0200">sponzo.connect.in@gmail.com</span></a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Call Us</h3>
+                    <p>Mon-Fri from 9am to 6pm IST</p>
+                    <a href="tel:+919876543210" class="contact-link">+91 98765 43210</a>
+                </div>
+            </div>
+
+            <div class="social-links" style="margin-top: 3rem;">
+                <a href="https://linkedin.com/company/sponzo" class="social-link" target="_blank" title="LinkedIn">
+                    <span>in</span>
+                </a>
+                <a href="https://twitter.com/sponzo" class="social-link" target="_blank" title="Twitter">
+                    <span>𝕏</span>
+                </a>
+                <a href="https://instagram.com/sponzo" class="social-link" target="_blank" title="Instagram">
+                    <span>📷</span>
+                </a>
+                <a href="https://facebook.com/sponzo" class="social-link" target="_blank" title="Facebook">
+                    <span>f</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -231,6 +283,11 @@
             <div class="footer-content">
                 <div class="footer-logo">SPONZO</div>
                 <p class="footer-tagline">Making Sponsorships Simple & Accessible for Everyone</p>
+                
+                <div style="margin: 2rem 0; display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
+                    <p style="margin: 0; opacity: 0.8;">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f685838686998482b6858699988c99d895999b"></a> | 📞 +91 98765 43210</p>
+                    <p style="margin: 0; opacity: 0.8;">🕐 Mon-Fri, 9:00 AM - 6:00 PM IST</p>
+                </div>
 
                 <div class="footer-bottom">
                     <p>&copy; 2024 SPONZO. All rights reserved. | Connecting Events with Sponsors</p>
@@ -483,6 +540,18 @@
         </div>
     </div>
 
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <img id="lightboxImage" src="" alt="Event Photo">
+            <div class="lightbox-info" id="lightboxInfo">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDetails"></p>
+            </div>
+        </div>
+    </div>
+
     <!-- Success Message -->
     <div class="success-message" id="successMessage">
         <div class="success-message-content">
@@ -494,6 +563,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
