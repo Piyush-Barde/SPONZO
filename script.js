@@ -51,7 +51,7 @@ if (organizerForm) {
 
     try {
       await fetch(
-        "https://script.google.com/macros/s/AKfycbx_Z6P3mSjYle7MR3b1TN9SFAfcMGUW1y6Es4h_wIZgClQHDtMjgepGJ_Leor3N0XVl/exec",
+        "https://script.google.com/macros/s/AKfycbyRrhaEBeb887DI0SPWo_C3gm_iI6EbhMSLuOY_m6HdU9n5P_2ufl9RzWmh9CWFOMtltg/exec",
         {
           method: "POST",
           body: JSON.stringify(data)
