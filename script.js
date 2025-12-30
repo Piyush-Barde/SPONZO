@@ -72,6 +72,48 @@ if (organizerForm) {
   });
 }
 
+// ===============================
+// Sponsor Form
+// ===============================
+const sponsorForm = document.getElementById("sponsorForm");
+
+if (sponsorForm) {
+  sponsorForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const btn = sponsorForm.querySelector('button[type="submit"]');
+    btn.classList.add("loading-state");
+
+    const data = Object.fromEntries(new FormData(sponsorForm));
+
+    // 🔹 identify type for Apps Script
+    data.formType = "sponsor";
+
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbxZcMB1wYR65_zEAI-pUiwnkV_Hl9jKPWD4fkemmktip7vUJio2DnrhhbSW-N8CRc5MJg/exec",
+        {
+          method: "POST",
+          body: JSON.stringify(data)
+        }
+      );
+
+      // ✅ Assume success
+      btn.classList.remove("loading-state");
+      sponsorForm.reset();
+      closeModal("sponsor");
+      showSuccessMessage();
+
+    } catch (err) {
+      console.error(err);
+      btn.classList.remove("loading-state");
+      alert("Sponsor submission failed. Try again.");
+    }
+  });
+}
+
+
+
 // Success Message
 function showSuccessMessage() {
   const successMessage = document.getElementById("successMessage");
